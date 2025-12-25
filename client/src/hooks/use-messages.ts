@@ -1,49 +1,26 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, type InsertMessage } from "@shared/routes";
+import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { insertMessageSchema, type InsertMessage } from "@shared/schema";
 import emailjs from 'emailjs-com';
 
-// POST /api/messages
 export function useCreateMessage() {
-  const queryClient = useQueryClient();
   const { toast } = useToast();
 
   return useMutation({
     mutationFn: async (data: InsertMessage) => {
-      // 1. Send to EmailJS (Client-side)
-      // Note: In a real env, use import.meta.env.VITE_EMAILJS_*
-      // Fallback strings provided for demo stability if env vars missing
-      try {
-        await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID || 'default_service',
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'default_template',
-          {
-            from_name: data.name,
-            from_email: data.email,
-            message: data.message,
-          },
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'default_key'
-        );
-      } catch (e) {
-        console.warn("EmailJS failed, falling back to database only", e);
-        // Continue to database save even if email fails
-      }
+      // Send directly to EmailJS (Gmail inbox)
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
 
-      // 2. Save to backend (In-memory storage)
-      const validated = api.messages.create.input.parse(data);
-      const res = await fetch(api.messages.create.path, {
-        method: api.messages.create.method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(validated),
-        credentials: "include",
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || 'Failed to send message');
-      }
-
-      return api.messages.create.responses[201].parse(await res.json());
+      return data;
     },
     onSuccess: () => {
       toast({
@@ -54,7 +31,7 @@ export function useCreateMessage() {
     onError: (error) => {
       toast({
         title: "Error",
-        description: error.message || "Failed to send message. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to send message. Please check your email settings.",
         variant: "destructive",
       });
     }

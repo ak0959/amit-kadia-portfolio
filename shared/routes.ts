@@ -1,27 +1,4 @@
-import { z } from 'zod';
-import { insertMessageSchema } from './schema';
-
-export const api = {
-  messages: {
-    create: {
-      method: 'POST' as const,
-      path: '/api/messages',
-      input: insertMessageSchema,
-      responses: {
-        201: z.object({
-          id: z.string(),
-          name: z.string(),
-          email: z.string(),
-          message: z.string(),
-          createdAt: z.string(),
-        }),
-        400: z.object({ message: z.string() }),
-        500: z.object({ message: z.string() }),
-      },
-    },
-  },
-};
-
+// No API routes - contact form sends directly via EmailJS
 export function buildUrl(path: string, params?: Record<string, string | number>): string {
   let url = path;
   if (params) {
