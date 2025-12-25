@@ -27,13 +27,20 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const EXPERIENCE_DATA = [
   {
     role: "Senior Project Delivery Manager",
     company: "Horizontal Integration India Pvt Ltd",
     period: "08/2024 - Present",
-    location: "Vadodara / Dubai",
+    location: "Vadodara",
     description: [
       "Leading cross-functional delivery teams across India, UAE, and US.",
       "Managing complex digital transformation programs with $295K/mo budget.",
@@ -82,6 +89,15 @@ const SKILLS_DATA = [
   { category: "Domain", items: ["Digital Transformation", "Service Delivery", "GovTech", "EdTech", "FinTech"] }
 ];
 
+const CERTIFICATIONS_DATA = [
+  { title: "PMI Agile Certification", image: "/certifications/upGRAD PMI ACP Course Certificate.jpg", description: "Project Management Professional" },
+  { title: "Certified Scrum Master", image: "/certifications/Amit Kadia-ScrumAlliance_CSM_Certificate.jpg", description: "Agile Scrum Methodology" },
+  { title: "Agile Foundations", image: "/certifications/CertificateOfCompletion_Agile Foundations.jpg", description: "Agile Foundations" },
+  { title: "Career Essentials", image: "/certifications/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.jpg", description: "Career Essentials in Generative AI by Microsoft and LinkedIn" },
+  { title: "Generative AI", image: "/certifications/Generative AI Foundations Certificate Program.jpg", description: "Completed Generative AI Foundations course from UpGrad" },
+  { title: "ITIL Certification", image: "/certifications/ITIL Certificate.jpg", description: "ITIL Foundation Certification in IT Service Management" }
+];
+
 export default function Home() {
   const { mutate: sendMessage, isPending } = useCreateMessage();
   const form = useForm<InsertMessage>({
@@ -120,7 +136,7 @@ export default function Home() {
               
               <h1 className="text-5xl md:text-7xl font-display font-bold text-primary leading-tight mb-6">
                 Amit <br />
-                <span className="text-secondary-foreground/60">Kadia</span>
+                <span className="text-accent">Kadia</span>
               </h1>
               
               <p className="text-xl text-muted-foreground mb-8 max-w-lg leading-relaxed">
@@ -141,7 +157,7 @@ export default function Home() {
                   className="rounded-full px-8 border-primary/20 hover:bg-primary/5 text-primary"
                   asChild
                 >
-                  <a href="/Amit_Kadia_CV_1766640247652.pdf" download target="_blank">
+                  <a href="/Amit Kadia_CV.pdf" download target="_blank">
                     <Download className="mr-2 w-4 h-4" /> Download CV
                   </a>
                 </Button>
@@ -234,6 +250,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Certifications Section */}
+      <section id="certifications" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader 
+            label="Certifications" 
+            title="Professional Credentials"
+            description="Industry-recognized certifications that validate my expertise and commitment to excellence."
+            centered
+          />
+          
+          <div className="mt-16">
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {CERTIFICATIONS_DATA.map((cert, i) => (
+                  <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-1">
+                      <Card className="bg-gray-50 hover:bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-transparent hover:border-border">
+                        <CardContent className="p-6">
+                          <img
+                            src={cert.image}
+                            alt={cert.title}
+                            className="w-full h-48 object-cover rounded-lg mb-4"
+                          />
+                          <h3 className="text-lg font-bold text-primary mb-2">{cert.title}</h3>
+                          <p className="text-muted-foreground text-sm">{cert.description}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </div>
+      </section>
+
       {/* Experience Section */}
       <section id="experience" className="py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -309,7 +363,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-lg text-primary">Location</h4>
-                    <p className="text-muted-foreground">Dubai, UAE & Vadodara, India</p>
+                    <p className="text-muted-foreground">Vadodara, India</p>
                   </div>
                 </div>
                 
@@ -331,7 +385,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-lg text-primary">LinkedIn</h4>
-                    <a href="https://linkedin.com/in/amitkadia" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">
+                    <a href="https://www.linkedin.com/in/amit-kadia-92713519/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors">
                       linkedin.com/in/amitkadia
                     </a>
                   </div>

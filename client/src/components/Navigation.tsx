@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
   { label: "About", href: "#about" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
@@ -52,21 +52,11 @@ export function Navigation() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-sm font-medium text-secondary-foreground/80 hover:text-primary transition-colors"
+                className="text-sm font-medium text-black hover:text-primary transition-colors"
               >
                 {item.label}
               </a>
             ))}
-            <Button 
-              size="sm" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6"
-              asChild
-            >
-              <a href="/Amit_Kadia_CV_1766640247652.pdf" download target="_blank">
-                <Download className="w-4 h-4 mr-2" />
-                Resume
-              </a>
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,16 +78,11 @@ export function Navigation() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-lg font-medium text-foreground py-2 border-b border-border/50 last:border-0"
+                className="text-lg font-medium text-black py-2 border-b border-border/50 last:border-0"
               >
                 {item.label}
               </a>
             ))}
-            <Button className="w-full mt-4" asChild>
-              <a href="/Amit_Kadia_CV_1766640247652.pdf" download>
-                Download Resume
-              </a>
-            </Button>
           </div>
         </div>
       )}
