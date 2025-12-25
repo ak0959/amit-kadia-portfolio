@@ -77,39 +77,19 @@ npm run build
    ```bash
    vercel
    ```
-   Follow the prompts to link your project and deploy.
+   Follow the prompts to link your project and deploy. Vercel will automatically detect the Vite configuration in the `client/` directory.
 
 4. **Alternative: Deploy via GitHub**:
    - Push your code to GitHub
    - Connect your GitHub repo to Vercel
-   - Vercel will automatically detect the configuration and deploy
+   - Vercel will automatically detect and deploy from the `client/` directory
 
-### Environment Variables
+### Project Structure for Deployment
 
-For the contact form to work, set these environment variables in Vercel:
-
-- `VITE_EMAILJS_SERVICE_ID`: Your EmailJS service ID
-- `VITE_EMAILJS_TEMPLATE_ID`: Your EmailJS template ID
-- `VITE_EMAILJS_PUBLIC_KEY`: Your EmailJS public key
-
-## Project Structure
-
-```
-portfolio-builder/
-├── client/
-│   ├── public/          # Static assets
-│   ├── src/
-│   │   ├── components/  # React components
-│   │   ├── hooks/       # Custom hooks
-│   │   ├── lib/         # Utilities
-│   │   ├── pages/       # Page components
-│   │   └── main.tsx     # App entry point
-│   └── index.html       # HTML template
-├── server/              # Express server (for development)
-├── shared/              # Shared types/schemas
-├── script/              # Build scripts
-└── vercel.json          # Vercel configuration
-```
+The project is structured for easy deployment:
+- `client/` - Contains the React app with its own `package.json`
+- `client/public/` - Static assets including certifications and CV
+- Vercel auto-detects the Vite configuration and builds from `client/`
 
 ## Customization
 
