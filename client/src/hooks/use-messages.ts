@@ -29,7 +29,7 @@ export function useCreateMessage() {
         // Continue to database save even if email fails
       }
 
-      // 2. Save to Database (Backup)
+      // 2. Save to backend (In-memory storage)
       const validated = api.messages.create.input.parse(data);
       const res = await fetch(api.messages.create.path, {
         method: api.messages.create.method,
