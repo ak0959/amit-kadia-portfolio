@@ -5,27 +5,30 @@ import { ExperienceCard } from "@/components/ExperienceCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useCreateMessage } from "@/hooks/use-messages";
+
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertMessageSchema, type InsertMessage } from "@shared/schema";
-import { 
-  ArrowRight, 
-  Linkedin, 
-  Mail, 
-  MapPin, 
-  Download, 
-  CheckCircle2, 
-  Users, 
-  TrendingUp, 
-  Target 
+import {
+  ArrowRight,
+  Linkedin,
+  Mail,
+  MapPin,
+  Download,
+  CheckCircle2,
+  Users,
+  TrendingUp,
+  Target
 } from "lucide-react";
-import { 
-  Card, 
-  CardContent, 
-  CardHeader, 
-  CardTitle 
+import emailjs from "emailjs-com";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
 } from "@/components/ui/card";
 import {
   Carousel,
@@ -99,26 +102,71 @@ const CERTIFICATIONS_DATA = [
 ];
 
 export default function Home() {
-  const { mutate: sendMessage, isPending } = useCreateMessage();
+  const { toast } = useToast();
+  const [isSending, setIsSending] = useState(false);
+
   const form = useForm<InsertMessage>({
     resolver: zodResolver(insertMessageSchema),
     defaultValues: { name: "", email: "", message: "" }
   });
 
-  const onSubmit = (data: InsertMessage) => {
-    sendMessage(data, {
-      onSuccess: () => form.reset()
-    });
+  const onSubmit = async (data: InsertMessage) => {
+    setIsSending(true);
+
+    // Get credentials from env
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      toast({
+        title: "Configuration Error",
+        description: "EmailJS credentials are missing in environment variables.",
+        variant: "destructive"
+      });
+      setIsSending(false);
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message,
+          reply_to: data.email,
+        },
+        publicKey
+      );
+
+      toast({
+        title: "Message Sent",
+        description: "Thank you for reaching out! I'll get back to you soon.",
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast({
+        title: "Error Sending Message",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent selection:text-white">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         <HeroCanvas />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -133,27 +181,27 @@ export default function Home() {
                 </span>
                 Open to Opportunities
               </div>
-              
+
               <h1 className="text-5xl md:text-7xl font-display font-bold text-primary leading-tight mb-6">
                 Amit <br />
                 <span className="text-accent">Kadia</span>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-8 max-w-lg leading-relaxed">
                 Strategic Program Manager & Service Delivery Leader with 19+ years of experience orchestrating complex digital transformation programs.
               </p>
-              
+
               <div className="flex flex-wrap gap-4">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="rounded-full px-8 bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-primary/25 transition-all"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Contact Me <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  size="lg"
+                  variant="outline"
                   className="rounded-full px-8 border-primary/20 hover:bg-primary/5 text-primary"
                   asChild
                 >
@@ -206,29 +254,29 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            label="About Me" 
-            title="Strategic Leadership" 
+          <SectionHeader
+            label="About Me"
+            title="Strategic Leadership"
             description="I bridge the gap between technical complexity and business value, driving growth through efficient delivery."
             centered
           />
-          
+
           <div className="grid md:grid-cols-3 gap-8 mt-16">
             {[
-              { 
-                icon: Target, 
-                title: "Program Management", 
-                desc: "Expert in steering multi-million dollar digital programs from inception to delivery with proven frameworks." 
+              {
+                icon: Target,
+                title: "Program Management",
+                desc: "Expert in steering multi-million dollar digital programs from inception to delivery with proven frameworks."
               },
-              { 
-                icon: Users, 
-                title: "Global Team Leadership", 
-                desc: "Managed distributed teams of 50+ members across India, UAE, and US timezones effectively." 
+              {
+                icon: Users,
+                title: "Global Team Leadership",
+                desc: "Managed distributed teams of 50+ members across India, UAE, and US timezones effectively."
               },
-              { 
-                icon: TrendingUp, 
-                title: "Margin Recovery", 
-                desc: "Specialist in turning around at-risk projects, recovering margins by 15-20% through optimization." 
+              {
+                icon: TrendingUp,
+                title: "Margin Recovery",
+                desc: "Specialist in turning around at-risk projects, recovering margins by 15-20% through optimization."
               }
             ].map((item, i) => (
               <motion.div
@@ -253,13 +301,13 @@ export default function Home() {
       {/* Certifications Section */}
       <section id="certifications" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            label="Certifications" 
+          <SectionHeader
+            label="Certifications"
             title="Professional Credentials"
             description="Industry-recognized certifications that validate my expertise and commitment to excellence."
             centered
           />
-          
+
           <div className="mt-16">
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
@@ -291,13 +339,13 @@ export default function Home() {
       {/* Experience Section */}
       <section id="experience" className="py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            label="Career Path" 
+          <SectionHeader
+            label="Career Path"
             title="Professional Experience"
             description="A timeline of delivering value across various industries and roles."
-            centered 
+            centered
           />
-          
+
           <div className="mt-16 space-y-0 relative">
             {/* Vertical Line for Desktop is inside component */}
             {EXPERIENCE_DATA.map((exp, index) => (
@@ -311,7 +359,7 @@ export default function Home() {
       <section id="skills" className="py-24 bg-primary text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')] opacity-5 bg-cover bg-center" />
         <div className="absolute inset-0 bg-primary/90" />
-        
+
         {/* Unsplash Image Comment: Abstract digital network background for skills section */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -350,12 +398,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
-              <SectionHeader 
-                label="Get in Touch" 
+              <SectionHeader
+                label="Get in Touch"
                 title="Let's Start a Conversation"
                 description="Interested in collaboration or have a project in mind? I'm always open to discussing new opportunities."
               />
-              
+
               <div className="space-y-8 mt-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-primary flex-shrink-0">
@@ -366,7 +414,7 @@ export default function Home() {
                     <p className="text-muted-foreground">Vadodara, India</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-primary flex-shrink-0">
                     <Mail className="w-6 h-6" />
@@ -397,8 +445,8 @@ export default function Home() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-primary">Name</label>
-                  <Input 
-                    placeholder="Your Name" 
+                  <Input
+                    placeholder="Your Name"
                     className="bg-white border-gray-200 focus:border-primary h-12"
                     {...form.register("name")}
                   />
@@ -409,8 +457,8 @@ export default function Home() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-primary">Email</label>
-                  <Input 
-                    placeholder="your@email.com" 
+                  <Input
+                    placeholder="your@email.com"
                     type="email"
                     className="bg-white border-gray-200 focus:border-primary h-12"
                     {...form.register("email")}
@@ -422,8 +470,8 @@ export default function Home() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-primary">Message</label>
-                  <Textarea 
-                    placeholder="How can I help you?" 
+                  <Textarea
+                    placeholder="How can I help you?"
                     className="bg-white border-gray-200 focus:border-primary min-h-[150px] resize-none"
                     {...form.register("message")}
                   />
@@ -432,12 +480,12 @@ export default function Home() {
                   )}
                 </div>
 
-                <Button 
-                  type="submit" 
-                  disabled={isPending}
+                <Button
+                  type="submit"
+                  disabled={isSending}
                   className="w-full h-12 bg-primary text-white hover:bg-primary/90 text-lg font-medium"
                 >
-                  {isPending ? "Sending..." : "Send Message"}
+                  {isSending ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>
