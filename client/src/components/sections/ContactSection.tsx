@@ -83,6 +83,7 @@ export function ContactSection() {
               label="Get in Touch"
               title="Let's Start a Conversation"
               description="Interested in collaboration or have a project in mind? I'm always open to discussing new opportunities."
+              descriptionWrap={true}
             />
 
             <div className="space-y-6 mt-8">

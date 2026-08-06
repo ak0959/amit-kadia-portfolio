@@ -4,9 +4,10 @@ interface SectionHeaderProps {
   description?: string;
   centered?: boolean;
   darkTheme?: boolean;
+  descriptionWrap?: boolean;
 }
 
-export function SectionHeader({ label, title, description, centered = false, darkTheme = false }: SectionHeaderProps) {
+export function SectionHeader({ label, title, description, centered = false, darkTheme = false, descriptionWrap = false }: SectionHeaderProps) {
   return (
     <div className={`mb-16 ${centered ? 'text-center' : ''}`}>
       <span
@@ -21,7 +22,11 @@ export function SectionHeader({ label, title, description, centered = false, dar
       </h2>
       {description && (
         <p
-          className={`text-base sm:text-lg ${darkTheme ? 'text-[#E2D8FA]' : 'text-[#4A326E]'} font-normal max-w-none md:max-w-4xl lg:max-w-5xl mx-auto whitespace-normal md:whitespace-nowrap overflow-hidden text-ellipsis`}
+          className={`text-base sm:text-lg ${darkTheme ? 'text-[#E2D8FA]' : 'text-[#4A326E]'} font-normal max-w-none md:max-w-4xl lg:max-w-5xl mx-auto ${
+            descriptionWrap
+              ? 'whitespace-normal overflow-visible text-clip'
+              : 'whitespace-normal md:whitespace-nowrap overflow-hidden text-ellipsis'
+          }`}
         >
           {description}
         </p>
