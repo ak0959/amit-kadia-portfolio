@@ -39,7 +39,7 @@ export function ProjectsSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={shouldReduceMotion ? {} : { y: -6, scale: 1.015 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ type: "spring", stiffness: 320, damping: 22 }}
                 style={{
                   borderTopColor: project.accentColor,

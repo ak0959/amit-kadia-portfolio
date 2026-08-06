@@ -41,6 +41,15 @@
   --font-display: 'Libre Baskerville', serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+section[id] {
+  scroll-margin-top: 88px;
+}
+
 @layer base {
   * {
     @apply border-purple-900/20;

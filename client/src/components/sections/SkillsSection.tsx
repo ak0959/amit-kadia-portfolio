@@ -31,7 +31,7 @@ export function SkillsSection() {
                 key={i}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: i * 0.1 }}
                 className="bg-[#E2D8FA] hover:bg-[#F3EEFC] border border-[#3B2A60]/20 rounded-2xl p-6 hover:shadow-[0_14px_35px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
