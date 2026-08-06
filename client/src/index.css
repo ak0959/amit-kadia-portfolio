@@ -1,45 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Elegant, Executive Palette - Navy, Slate, Gold Accents */
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
+  /* Dominant Light Lavender & Velvet Purple Palette */
+  --background: 257 68% 87%;            /* Main Lavender #D3C5F6 */
+  --foreground: 259 39% 27%;            /* Velvet Purple #3B2A60 */
   
-  --primary: 221 39% 11%;      /* Deep Navy */
-  --primary-foreground: 210 40% 98%;
+  --primary: 259 39% 27%;               /* Velvet Purple #3B2A60 */
+  --primary-foreground: 257 60% 96%;    /* Light lavender off-white #F3EEFC */
   
-  --secondary: 215 16% 47%;    /* Slate Gray */
-  --secondary-foreground: 210 40% 98%;
+  --secondary: 258 28% 30%;             /* Deep plum body text #4A326E */
+  --secondary-foreground: 259 39% 27%;
   
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted: 257 60% 90%;                  /* Lighter lavender section #DDD3F8 */
+  --muted-foreground: 258 20% 38%;       /* Muted velvet #57417A */
   
-  --accent: 43 74% 49%;        /* Muted Gold for luxury feel */
-  --accent-foreground: 222 47% 11%;
+  --accent: 259 39% 27%;                /* Velvet Purple contrast #3B2A60 */
+  --accent-foreground: 257 60% 96%;
+
+  /* Supporting Accent Family */
+  --accent-teal: 177 28% 43%;           /* Muted Teal #4F8C8A */
+  --accent-blue: 213 25% 51%;           /* Dusty Blue #627FA3 */
+  --accent-coral: 5 44% 62%;            /* Soft Coral #C97872 */
+  --accent-gold: 36 41% 49%;            /* Muted Gold #B28A4A */
+  --accent-mauve: 270 29% 55%;          /* Mauve #8C6AAE */
+  --accent-indigo: 245 30% 41%;         /* Indigo #4F4A8A */
+  --accent-plum: 306 23% 33%;          /* Deep Plum #674064 */
   
   --destructive: 0 84% 60%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 257 60% 96%;
 
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 221 39% 11%;
+  --border: 259 30% 75%;                /* Muted mauve-lavender border #BFA9E3 */
+  --input: 259 30% 80%;
+  --ring: 259 39% 27%;
   
   --radius: 0.5rem;
   
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Playfair Display', serif;
+  --font-display: 'Libre Baskerville', serif;
 }
 
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-purple-900/20;
   }
   body {
-    @apply bg-background text-foreground antialiased font-sans selection:bg-primary selection:text-white;
+    @apply bg-background text-foreground antialiased font-sans selection:bg-primary selection:text-primary-foreground;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -47,7 +54,7 @@
   }
 
   p {
-    @apply leading-relaxed text-secondary-foreground/80;
+    @apply leading-relaxed text-secondary;
   }
 }
 
@@ -57,7 +64,7 @@
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+    @apply bg-[#E2D8FA]/90 backdrop-blur-md border border-[#3B2A60]/20 shadow-[0_10px_25px_rgba(59,42,96,0.12)];
   }
 
   .reveal-section {
