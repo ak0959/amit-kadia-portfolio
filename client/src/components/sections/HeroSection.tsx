@@ -43,12 +43,12 @@ function HeroStatCard({ icon: Icon, value, label, accentColor, variant = "light"
         borderTopColor: accentColor,
         borderTopWidth: "4px"
       }}
-      className={`relative z-0 hover:z-20 focus-visible:z-20 p-6 rounded-2xl border transition-colors duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#3B2A60] focus-visible:ring-offset-2 group shadow-xl ${
+      className={`relative z-0 hover:z-20 focus-visible:z-20 p-6 rounded-2xl border transition-colors duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#172536] focus-visible:ring-offset-2 group shadow-xl ${
         fullWidth ? "col-span-2 flex items-center gap-5" : "flex flex-col justify-between h-full"
       } ${
         isDark
-          ? "bg-[#3B2A60] text-white border-[#3B2A60] hover:border-[#4A326E] hover:shadow-[0_22px_48px_rgba(46,33,75,0.42)] shadow-[#3B2A60]/20"
-          : "bg-[#E2D8FA] border-[#3B2A60]/20 hover:border-[#3B2A60]/50 hover:shadow-[0_20px_45px_rgba(59,42,96,0.28)] shadow-[#3B2A60]/10"
+          ? "bg-[#213448] text-white border-[#213448] hover:border-[#94B4C1] hover:shadow-[0_22px_48px_rgba(23,37,54,0.35)] shadow-[#172536]/20"
+          : "bg-[#E8EFEA] border-[#C8D3CC] hover:border-[#94B4C1] hover:shadow-[0_20px_45px_rgba(23,37,54,0.15)] shadow-[#172536]/10"
       }`}
     >
       <div
@@ -63,10 +63,10 @@ function HeroStatCard({ icon: Icon, value, label, accentColor, variant = "light"
       </div>
 
       <div>
-        <p className={`font-bold font-sans ${fullWidth ? "text-2xl" : "text-3xl"} ${isDark ? "text-[#F3EEFC]" : "text-[#3B2A60]"}`}>
+        <p className={`font-bold font-sans ${fullWidth ? "text-2xl" : "text-3xl"} ${isDark ? "text-[#F8FAFC]" : "text-[#172536]"}`}>
           {value}
         </p>
-        <p className={`text-sm font-medium ${fullWidth ? "" : "mt-1"} ${isDark ? "text-[#DDD3F8]" : "text-[#4A326E]"}`}>
+        <p className={`text-sm font-medium ${fullWidth ? "" : "mt-1"} ${isDark ? "text-[#DDE3E8]" : "text-[#52606D]"}`}>
           {label}
         </p>
       </div>
@@ -103,8 +103,8 @@ export function HeroSection() {
   }, [shouldReduceMotion]);
 
   return (
-    <section className="relative pt-24 pb-8 md:pt-28 md:pb-12 overflow-hidden bg-[#C8B6F0]/30">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#D3C5F6] via-[#C8B6F0] to-[#DDD3F8] opacity-80">
+    <section className="relative pt-24 pb-8 md:pt-28 md:pb-12 overflow-hidden bg-[#F6F3EC]">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F6F3EC] via-[#E8EFEA] to-[#F6F3EC] opacity-80">
         {shouldLoadCanvas && (
           <Suspense fallback={null}>
             <HeroCanvas />
@@ -119,18 +119,18 @@ export function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-[#3B2A60] leading-tight mb-5 tracking-tight whitespace-nowrap">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-[#172536] leading-tight mb-5 tracking-tight whitespace-nowrap">
               Amit Kadia
             </h1>
 
-            <p className="text-xl text-[#4A326E] mb-7 max-w-lg leading-relaxed font-normal">
+            <p className="text-xl text-[#52606D] mb-7 max-w-lg leading-relaxed font-normal">
               Strategic Program Manager & Service Delivery Leader with 20+ years of experience orchestrating complex digital transformation programs.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Button
                 size="lg"
-                className="rounded-full px-8 bg-[#3B2A60] hover:bg-[#2E214B] text-[#F3EEFC] font-medium shadow-lg hover:shadow-[#3B2A60]/25 transition-all"
+                className="rounded-full px-8 bg-[#172536] hover:bg-[#213448] text-[#F8FAFC] font-medium shadow-lg hover:shadow-[#172536]/25 transition-all"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Contact Me <ArrowRight className="ml-2 w-4 h-4" />
@@ -138,7 +138,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 border-[#3B2A60]/30 bg-[#E2D8FA]/60 hover:bg-[#E2D8FA] text-[#3B2A60] font-medium hover:border-[#3B2A60]/60"
+                className="rounded-full px-8 border-[#C8D3CC] bg-[#F6F3EC]/80 hover:bg-[#F6F3EC] text-[#172536] font-medium hover:border-[#172536]"
                 asChild
               >
                 <a 
@@ -158,7 +158,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative hidden md:block"
           >
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#D3C5F6]/40 to-[#3B2A60]/20 rounded-full blur-3xl opacity-50" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#E8EFEA]/60 to-[#172536]/10 rounded-full blur-3xl opacity-50" />
             
             {/* 2-Top + 1-Bottom Grid with solid semantic icon backgrounds and white icons */}
             <div className="grid grid-cols-2 gap-5 py-10 px-2">

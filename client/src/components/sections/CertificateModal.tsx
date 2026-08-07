@@ -66,20 +66,20 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
     >
       <div
         ref={modalContentRef}
-        className="relative w-full max-w-5xl bg-[#160d29] border border-purple-800/50 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-5xl bg-[#172536] border border-[#94B4C1]/30 rounded-2xl shadow-[0_20px_50px_rgba(11,19,31,0.8)] overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()} // Prevent backdrop click when clicking modal
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-purple-900/40 bg-[#120b22]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#94B4C1]/20 bg-[#0B131F]">
           <div className="flex items-center gap-3 pr-4 overflow-hidden">
-            <div className="p-2 rounded-lg bg-purple-900/40 border border-purple-500/30 text-accent flex-shrink-0">
-              <ShieldCheck className="w-5 h-5 text-accent" />
+            <div className="p-2 rounded-lg bg-[#24756D]/20 border border-[#24756D]/40 text-[#24756D] flex-shrink-0">
+              <ShieldCheck className="w-5 h-5 text-[#24756D]" />
             </div>
             <div className="truncate">
-              <h3 id="certificate-modal-title" className="text-lg sm:text-xl font-bold text-white truncate">
+              <h3 id="certificate-modal-title" className="text-lg sm:text-xl font-bold text-[#F8FAFC] truncate">
                 {certificate.title}
               </h3>
-              <p className="text-xs sm:text-sm text-accent font-medium">
+              <p className="text-xs sm:text-sm text-[#8DAA96] font-medium">
                 {certificate.provider}
               </p>
             </div>
@@ -89,7 +89,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
             ref={closeButtonRef}
             onClick={onClose}
             aria-label="Close certificate modal"
-            className="p-2 rounded-xl bg-purple-900/30 hover:bg-purple-800/60 text-purple-200 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="p-2 rounded-xl bg-[#213448] hover:bg-[#24756D] text-[#DDE3E8] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#24756D]"
           >
             <X className="w-6 h-6" />
           </button>
@@ -97,7 +97,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
 
         {/* Certificate Display Area */}
         <div 
-          className="relative flex-1 p-4 sm:p-6 overflow-auto bg-[#0a0613] flex items-center justify-center select-none"
+          className="relative flex-1 p-4 sm:p-6 overflow-auto bg-[#0B131F] flex items-center justify-center select-none"
           onContextMenu={(e) => e.preventDefault()}
         >
           <img
@@ -111,7 +111,7 @@ export function CertificateModal({ certificate, onClose }: CertificateModalProps
         </div>
 
         {/* Footer Notice */}
-        <div className="px-6 py-3 bg-[#120b22] border-t border-purple-900/40 text-center text-xs text-purple-300/60">
+        <div className="px-6 py-3 bg-[#0B131F] border-t border-[#94B4C1]/20 text-center text-xs text-[#94B4C1]">
           Official Credential Verification View • Watermarked & Protected
         </div>
       </div>

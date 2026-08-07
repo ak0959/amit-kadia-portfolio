@@ -75,7 +75,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#DDD3F8] border-t border-[#3B2A60]/15">
+    <section id="contact" className="py-24 bg-[#E8EFEA] border-t border-[#C8D3CC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-16">
           <div>
@@ -96,7 +96,7 @@ export function ContactSection() {
                 >
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-base sm:text-lg font-semibold text-[#3B2A60]">
+                <span className="text-base sm:text-lg font-semibold text-[#172536]">
                   Vadodara, Gujarat, India
                 </span>
               </div>
@@ -110,7 +110,7 @@ export function ContactSection() {
                 >
                   <Mail className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-base sm:text-lg font-semibold text-[#3B2A60]">
+                <span className="text-base sm:text-lg font-semibold text-[#172536]">
                   adi209@gmail.com
                 </span>
               </div>
@@ -124,7 +124,7 @@ export function ContactSection() {
                 >
                   <Phone className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-base sm:text-lg font-semibold text-[#3B2A60]">
+                <span className="text-base sm:text-lg font-semibold text-[#172536]">
                   +91 9638180959
                 </span>
               </div>
@@ -142,7 +142,7 @@ export function ContactSection() {
                   href="https://www.linkedin.com/in/amit-kadia" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-base sm:text-lg font-semibold text-[#3B2A60] hover:text-[#0A66C2] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2] rounded-md"
+                  className="text-base sm:text-lg font-semibold text-[#172536] hover:text-[#0A66C2] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#0A66C2] rounded-md"
                 >
                   linkedin.com/in/amit-kadia
                 </a>
@@ -157,7 +157,7 @@ export function ContactSection() {
                 >
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-base sm:text-lg font-semibold text-[#3B2A60]">
+                <span className="text-base sm:text-lg font-semibold text-[#172536]">
                   Open to full-time and part-time remote opportunities
                 </span>
               </div>
@@ -165,7 +165,7 @@ export function ContactSection() {
           </div>
 
           {/* Contact Form Container */}
-          <div className="bg-[#E2D8FA] rounded-3xl p-8 border border-[#3B2A60]/20 shadow-xl">
+          <div className="bg-[#F6F3EC] rounded-3xl p-8 border border-[#C8D3CC] shadow-xl">
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Hidden Honeypot Field for Bot Defense */}
               <input
@@ -180,7 +180,7 @@ export function ContactSection() {
               />
 
               <div className="space-y-2">
-                <label htmlFor="contact-name" className="text-sm font-bold text-[#3B2A60]">
+                <label htmlFor="contact-name" className="text-sm font-bold text-[#172536]">
                   Name
                 </label>
                 <Input
@@ -190,7 +190,7 @@ export function ContactSection() {
                   autoComplete="name"
                   aria-invalid={!!form.formState.errors.name}
                   aria-describedby={form.formState.errors.name ? "name-error" : undefined}
-                  className="bg-[#F3EEFC] border-[#3B2A60]/30 text-[#3B2A60] placeholder:text-[#57417A]/60 focus:border-[#3B2A60] h-12"
+                  className="bg-[#F8FAFC] border-[#C8D3CC] text-[#172536] placeholder:text-[#52606D]/60 focus:border-[#172536] focus:ring-[#172536] h-12"
                   {...form.register("name")}
                 />
                 {form.formState.errors.name && (
@@ -201,7 +201,7 @@ export function ContactSection() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-email" className="text-sm font-bold text-[#3B2A60]">
+                <label htmlFor="contact-email" className="text-sm font-bold text-[#172536]">
                   Email
                 </label>
                 <Input
@@ -213,7 +213,7 @@ export function ContactSection() {
                   inputMode="email"
                   aria-invalid={!!form.formState.errors.email}
                   aria-describedby={form.formState.errors.email ? "email-error" : undefined}
-                  className="bg-[#F3EEFC] border-[#3B2A60]/30 text-[#3B2A60] placeholder:text-[#57417A]/60 focus:border-[#3B2A60] h-12"
+                  className="bg-[#F8FAFC] border-[#C8D3CC] text-[#172536] placeholder:text-[#52606D]/60 focus:border-[#172536] focus:ring-[#172536] h-12"
                   {...form.register("email")}
                 />
                 {form.formState.errors.email && (
@@ -224,7 +224,7 @@ export function ContactSection() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="contact-message" className="text-sm font-bold text-[#3B2A60]">
+                <label htmlFor="contact-message" className="text-sm font-bold text-[#172536]">
                   Message
                 </label>
                 <Textarea
@@ -234,7 +234,7 @@ export function ContactSection() {
                   autoComplete="off"
                   aria-invalid={!!form.formState.errors.message}
                   aria-describedby={form.formState.errors.message ? "message-error" : undefined}
-                  className="bg-[#F3EEFC] border-[#3B2A60]/30 text-[#3B2A60] placeholder:text-[#57417A]/60 focus:border-[#3B2A60] min-h-[150px] resize-none"
+                  className="bg-[#F8FAFC] border-[#C8D3CC] text-[#172536] placeholder:text-[#52606D]/60 focus:border-[#172536] focus:ring-[#172536] min-h-[150px] resize-none"
                   {...form.register("message")}
                 />
                 {form.formState.errors.message && (
@@ -247,7 +247,7 @@ export function ContactSection() {
               <Button
                 type="submit"
                 disabled={isSending}
-                className="w-full h-12 bg-[#3B2A60] hover:bg-[#2E214B] text-[#F3EEFC] text-lg font-semibold shadow-lg transition-all"
+                className="w-full h-12 bg-[#172536] hover:bg-[#213448] text-[#F8FAFC] text-lg font-semibold shadow-lg transition-all"
               >
                 {isSending ? "Sending..." : "Send Message"}
               </Button>

@@ -10,7 +10,7 @@ export function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="projects" className="py-24 bg-[#E2D8FA] border-t border-[#3B2A60]/15">
+    <section id="projects" className="py-24 bg-[#F6F3EC] border-t border-[#C8D3CC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="SELECTED WORK"
@@ -45,7 +45,7 @@ export function ProjectsSection() {
                   borderTopColor: project.accentColor,
                   borderTopWidth: "4px"
                 }}
-                className={`p-7 rounded-2xl bg-[#DDD3F8] hover:bg-[#F3EEFC] hover:shadow-2xl transition-all duration-200 border border-[#3B2A60]/20 flex flex-col justify-between group outline-none focus-visible:ring-2 focus-visible:ring-[#3B2A60] focus-visible:ring-offset-2 relative overflow-hidden ${gridPositionClass}`}
+                className={`p-7 rounded-2xl bg-[#FFFFFF] hover:bg-[#F4F7F5] hover:shadow-2xl transition-all duration-200 border border-[#C8D3CC] flex flex-col justify-between group outline-none focus-visible:ring-2 focus-visible:ring-[#172536] focus-visible:ring-offset-2 relative overflow-hidden ${gridPositionClass}`}
               >
                 {/* Accent-tinted header gradient glow zone */}
                 <div
@@ -69,10 +69,10 @@ export function ProjectsSection() {
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="text-xl font-bold text-[#3B2A60] mb-3 leading-snug group-hover:text-[#2E214B] transition-colors">
+                  <h3 className="text-xl font-bold text-[#172536] mb-3 leading-snug group-hover:text-[#24756D] transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-[15px] text-[#4A326E] leading-relaxed mb-6 font-normal">
+                  <p className="text-[15px] text-[#52606D] leading-relaxed mb-6 font-normal">
                     {project.description}
                   </p>
                 </div>
@@ -87,7 +87,7 @@ export function ProjectsSection() {
                           backgroundColor: `${project.accentColor}12`,
                           borderColor: `${project.accentColor}30`
                         }}
-                        className="px-2.5 py-1 rounded-md border text-[#3B2A60] text-xs font-semibold"
+                        className="px-2.5 py-1 rounded-md border text-[#172536] text-xs font-semibold"
                       >
                         {tag}
                       </span>
@@ -96,15 +96,15 @@ export function ProjectsSection() {
 
                   {/* Functional CTA Button */}
                   {targetUrl && (
-                    <div className="pt-4 border-t border-[#3B2A60]/15">
+                    <div className="pt-4 border-t border-[#D8DFDA]">
                       <Button
                         asChild
                         variant="outline"
                         style={{
                           borderColor: project.accentColor,
-                          color: "#3B2A60"
+                          color: "#172536"
                         }}
-                        className="w-full h-10 rounded-xl border font-semibold text-xs transition-all hover:bg-[#3B2A60] hover:text-white"
+                        className="w-full h-10 rounded-xl border font-semibold text-xs transition-all hover:bg-[#172536] hover:text-white"
                       >
                         <a
                           href={targetUrl}

@@ -55,7 +55,7 @@ export function Navigation() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
-        isScrolled ? "bg-[#D3C5F6]/90 backdrop-blur-md shadow-sm border-[#3B2A60]/15 py-3.5" : "bg-transparent py-5"
+        isScrolled ? "bg-[#F6F3EC]/90 backdrop-blur-md shadow-sm border-[#C8D3CC] py-3.5" : "bg-transparent py-5"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ export function Navigation() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-[15px] font-semibold text-[#3B2A60] hover:text-[#4A326E] transition-colors"
+                className="text-[15px] font-semibold text-[#172536] hover:text-[#24756D] transition-colors"
               >
                 {item.label}
               </a>
@@ -103,7 +103,7 @@ export function Navigation() {
               <Button
                 size="sm"
                 variant="outline"
-                className="rounded-full px-5 border-[#3B2A60]/30 bg-[#E2D8FA]/70 hover:bg-[#E2D8FA] text-[#3B2A60] font-semibold hover:border-[#3B2A60]/60 text-xs"
+                className="rounded-full px-5 border-[#172536] bg-[#F6F3EC] hover:bg-[#172536] text-[#172536] hover:text-[#F8FAFC] font-semibold text-xs transition-colors"
                 asChild
               >
                 <a 
@@ -119,7 +119,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-[#3B2A60] ml-auto"
+            className="md:hidden p-2 text-[#172536] ml-auto"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
           >
@@ -130,14 +130,14 @@ export function Navigation() {
 
       {/* Mobile Nav */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#E2D8FA] border-b border-[#3B2A60]/20 p-4 shadow-lg animate-in slide-in-from-top-5">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-[#F6F3EC] border-b border-[#C8D3CC] p-4 shadow-lg animate-in slide-in-from-top-5">
           <div className="flex flex-col space-y-4">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-lg font-semibold text-[#3B2A60] py-2 border-b border-[#3B2A60]/15 last:border-0 hover:text-[#4A326E]"
+                className="text-lg font-semibold text-[#172536] py-2 border-b border-[#C8D3CC]/50 last:border-0 hover:text-[#24756D]"
               >
                 {item.label}
               </a>
@@ -167,7 +167,7 @@ export function Navigation() {
 
               <Button
                 variant="outline"
-                className="flex-1 rounded-full border-[#3B2A60]/30 bg-[#F3EEFC] text-[#3B2A60] font-semibold"
+                className="flex-1 rounded-full border-[#172536] bg-[#F6F3EC] hover:bg-[#172536] text-[#172536] hover:text-[#F8FAFC] font-semibold transition-colors"
                 asChild
               >
                 <a 

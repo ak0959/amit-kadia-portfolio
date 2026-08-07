@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  /* Dominant Light Lavender & Velvet Purple Palette */
-  --background: 257 68% 87%;            /* Main Lavender #D3C5F6 */
-  --foreground: 259 39% 27%;            /* Velvet Purple #3B2A60 */
+  /* AMPITICS Professional Palette */
+  --background: 40 33% 94%;             /* Warm Off-White #F6F3EC */
+  --foreground: 213 41% 15%;            /* Primary Dark #172536 */
   
-  --primary: 259 39% 27%;               /* Velvet Purple #3B2A60 */
-  --primary-foreground: 257 60% 96%;    /* Light lavender off-white #F3EEFC */
+  --primary: 213 41% 15%;               /* Primary Dark #172536 */
+  --primary-foreground: 40 33% 94%;    /* Warm Off-White #F6F3EC */
   
-  --secondary: 258 28% 30%;             /* Deep plum body text #4A326E */
-  --secondary-foreground: 259 39% 27%;
+  --secondary: 208 14% 37%;             /* Body Text #52606D */
+  --secondary-foreground: 213 41% 15%;
   
-  --muted: 257 60% 90%;                  /* Lighter lavender section #DDD3F8 */
-  --muted-foreground: 258 20% 38%;       /* Muted velvet #57417A */
+  --muted: 208 18% 93%;                 /* Light Blue-Grey Surface #E9EDF1 */
+  --muted-foreground: 208 14% 37%;      /* Body Text #52606D */
   
-  --accent: 259 39% 27%;                /* Velvet Purple contrast #3B2A60 */
-  --accent-foreground: 257 60% 96%;
+  --accent: 173 53% 30%;                /* Primary Teal Accent #24756D */
+  --accent-foreground: 40 33% 94%;
 
   /* Supporting Accent Family */
-  --accent-teal: 177 28% 43%;           /* Muted Teal #4F8C8A */
+  --accent-teal: 173 53% 30%;           /* Primary Teal Accent #24756D */
   --accent-blue: 213 25% 51%;           /* Dusty Blue #627FA3 */
   --accent-coral: 5 44% 62%;            /* Soft Coral #C97872 */
   --accent-gold: 36 41% 49%;            /* Muted Gold #B28A4A */
@@ -29,11 +29,11 @@
   --accent-plum: 306 23% 33%;          /* Deep Plum #674064 */
   
   --destructive: 0 84% 60%;
-  --destructive-foreground: 257 60% 96%;
+  --destructive-foreground: 40 33% 94%;
 
-  --border: 259 30% 75%;                /* Muted mauve-lavender border #BFA9E3 */
-  --input: 259 30% 80%;
-  --ring: 259 39% 27%;
+  --border: 140 9% 80%;                 /* Primary Border #C8D3CC */
+  --input: 140 9% 80%;
+  --ring: 213 41% 15%;
   
   --radius: 0.5rem;
   
@@ -52,7 +52,7 @@ section[id] {
 
 @layer base {
   * {
-    @apply border-purple-900/20;
+    @apply border-[#C8D3CC];
   }
   body {
     @apply bg-background text-foreground antialiased font-sans selection:bg-primary selection:text-primary-foreground;
@@ -73,7 +73,7 @@ section[id] {
   }
   
   .glass-card {
-    @apply bg-[#E2D8FA]/90 backdrop-blur-md border border-[#3B2A60]/20 shadow-[0_10px_25px_rgba(59,42,96,0.12)];
+    @apply bg-[#F6F3EC]/90 backdrop-blur-md border border-[#C8D3CC] shadow-[0_10px_25px_rgba(23,37,54,0.06)];
   }
 
   .reveal-section {

@@ -30,7 +30,7 @@ function ParticleField() {
       <Points ref={ref} positions={positions} stride={3} frustumCulled={true}>
         <PointMaterial
           transparent
-          color="#3B2A60"
+          color="#172536"
           size={0.02}
           sizeAttenuation={true}
           depthWrite={false}
@@ -75,7 +75,7 @@ export function HeroCanvas() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 -z-10 bg-gradient-to-br from-[#D3C5F6] via-[#C8B6F0] to-[#DDD3F8] opacity-80">
+    <div ref={containerRef} className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F6F3EC] via-[#E8EFEA] to-[#F6F3EC] opacity-80">
       {isVisible && (
         <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 1] }} performance={{ min: 0.5 }}>
           <ParticleField />

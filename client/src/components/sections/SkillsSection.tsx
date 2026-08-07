@@ -8,9 +8,9 @@ const categoryAccents = ["#5B4DB1", "#D97706", "#2563EB", "#0F9D8A"]; // Indigo,
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-24 bg-[#3B2A60] text-[#F3EEFC] relative overflow-hidden border-t border-[#3B2A60]/30 shadow-inner">
+    <section id="skills" className="py-24 bg-[#172536] text-[#F8FAFC] relative overflow-hidden border-t border-[#213448] shadow-inner">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')] opacity-5 bg-cover bg-center" />
-      <div className="absolute inset-0 bg-[#3B2A60]/95" />
+      <div className="absolute inset-0 bg-[#172536]/95" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeader
@@ -33,7 +33,7 @@ export function SkillsSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-[#E2D8FA] hover:bg-[#F3EEFC] border border-[#3B2A60]/20 rounded-2xl p-6 hover:shadow-[0_14px_35px_rgba(0,0,0,0.25)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-[#E8EFEA] hover:bg-[#F4F7F5] border border-[#C8D3CC] rounded-2xl p-6 hover:shadow-[0_14px_35px_rgba(11,19,31,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div
@@ -42,8 +42,8 @@ export function SkillsSection() {
                   >
                     <Icon className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold text-[#3B2A60] mb-2 leading-snug">{skillGroup.category}</h3>
-                  <p className="text-[13px] text-[#4A326E] mb-6 font-normal leading-relaxed">{skillGroup.description}</p>
+                  <h3 className="text-lg font-bold text-[#172536] mb-2 leading-snug">{skillGroup.category}</h3>
+                  <p className="text-[13px] text-[#52606D] mb-6 font-normal leading-relaxed">{skillGroup.description}</p>
                 </div>
 
                 {/* Skill Chips */}
@@ -51,7 +51,7 @@ export function SkillsSection() {
                   {skillGroup.items.map((skill, j) => (
                     <span
                       key={j}
-                      className="px-2.5 py-1 rounded-lg bg-[#DDD3F8] border border-[#3B2A60]/25 text-[#3B2A60] text-xs font-semibold hover:border-[#3B2A60]/50 transition-colors"
+                      className="px-2.5 py-1 rounded-lg bg-[#F4F7F5] border border-[#C8D3CC] text-[#213448] text-xs font-semibold hover:border-[#24756D] transition-colors"
                     >
                       {skill}
                     </span>
