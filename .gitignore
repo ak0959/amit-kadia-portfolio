@@ -7,3 +7,5 @@ vite.config.ts.*
 .vercel
 .env.local
 .env
+# Original source assets (kept out of the build)
+assets-source/

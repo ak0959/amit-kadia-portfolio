@@ -3,80 +3,66 @@
 @tailwind utilities;
 
 :root {
-  /* AMPITICS Professional Palette */
-  --background: 40 33% 94%;             /* Warm Off-White #F6F3EC */
-  --foreground: 213 41% 15%;            /* Primary Dark #172536 */
-  
-  --primary: 213 41% 15%;               /* Primary Dark #172536 */
-  --primary-foreground: 40 33% 94%;    /* Warm Off-White #F6F3EC */
-  
-  --secondary: 208 14% 37%;             /* Body Text #52606D */
-  --secondary-foreground: 213 41% 15%;
-  
-  --muted: 208 18% 93%;                 /* Light Blue-Grey Surface #E9EDF1 */
-  --muted-foreground: 208 14% 37%;      /* Body Text #52606D */
-  
-  --accent: 173 53% 30%;                /* Primary Teal Accent #24756D */
-  --accent-foreground: 40 33% 94%;
+  /* Retro-professional palette (estimated from the approved mockup) */
+  --background: 22 78% 95%;             /* peach cream #FDF0E8 */
+  --foreground: 227 41% 18%;            /* navy #1B2440 */
 
-  /* Supporting Accent Family */
-  --accent-teal: 173 53% 30%;           /* Primary Teal Accent #24756D */
-  --accent-blue: 213 25% 51%;           /* Dusty Blue #627FA3 */
-  --accent-coral: 5 44% 62%;            /* Soft Coral #C97872 */
-  --accent-gold: 36 41% 49%;            /* Muted Gold #B28A4A */
-  --accent-mauve: 270 29% 55%;          /* Mauve #8C6AAE */
-  --accent-indigo: 245 30% 41%;         /* Indigo #4F4A8A */
-  --accent-plum: 306 23% 33%;          /* Deep Plum #674064 */
-  
+  --primary: 227 41% 18%;
+  --primary-foreground: 22 78% 95%;
+
+  --secondary: 230 15% 35%;             /* slate #4A5068 */
+  --secondary-foreground: 227 41% 18%;
+
+  --muted: 22 60% 92%;
+  --muted-foreground: 230 15% 35%;
+
+  --accent: 6 77% 58%;                  /* coral #E8553E */
+  --accent-foreground: 0 0% 100%;
+
+  --accent-teal: 183 70% 38%;
+  --accent-blue: 213 25% 51%;
+  --accent-coral: 6 77% 58%;
+  --accent-gold: 36 41% 49%;
+  --accent-mauve: 270 29% 55%;
+  --accent-indigo: 245 30% 41%;
+  --accent-plum: 306 23% 33%;
+
   --destructive: 0 84% 60%;
-  --destructive-foreground: 40 33% 94%;
+  --destructive-foreground: 0 0% 100%;
 
-  --border: 140 9% 80%;                 /* Primary Border #C8D3CC */
-  --input: 140 9% 80%;
-  --ring: 213 41% 15%;
-  
+  --border: 14 45% 86%;
+  --input: 14 45% 86%;
+  --ring: 6 77% 58%;
+
   --radius: 0.5rem;
-  
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Libre Baskerville', serif;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Poppins', 'Inter', sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
 }
 
 section[id] {
-  scroll-margin-top: 88px;
+  scroll-margin-top: 76px;
 }
 
 @layer base {
   * {
-    @apply border-[#C8D3CC];
+    @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased font-sans selection:bg-primary selection:text-primary-foreground;
+    @apply bg-background text-foreground antialiased font-sans;
   }
-  
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight text-primary;
   }
-
   p {
-    @apply leading-relaxed text-secondary;
+    @apply leading-relaxed;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .glass-card {
-    @apply bg-[#F6F3EC]/90 backdrop-blur-md border border-[#C8D3CC] shadow-[0_10px_25px_rgba(23,37,54,0.06)];
-  }
-
-  .reveal-section {
-    @apply transition-all duration-700 ease-out;
-  }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

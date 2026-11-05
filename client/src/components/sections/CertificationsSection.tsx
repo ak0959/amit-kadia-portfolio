@@ -1,147 +1,120 @@
 import { useState, useRef, lazy, Suspense } from "react";
-import { Eye, ShieldAlert } from "lucide-react";
-import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { CERTIFICATIONS_DATA } from "@/data/certifications";
-import { CertificationItem } from "@/types/portfolio";
+import { credentials, type CertificationDisc, type EducationItem, type ViewableDocument } from "@/data/portfolio.mock";
 
-// Lazy load certificate modal for optimal performance
-const CertificateModal = lazy(() => import("./CertificateModal").then(module => ({ default: module.CertificateModal })));
+// The PDF viewer (and pdf.js) is only loaded when a document is opened.
+const PdfCertificateModal = lazy(() => import("./PdfCertificateModal").then((m) => ({ default: m.PdfCertificateModal })));
+
+/** Small retro folder-with-document icon. */
+function FolderIcon() {
+  return (
+    <svg className="rt-ed-icon" viewBox="0 0 48 40" aria-hidden="true" focusable="false">
+      <path d="M3 8a3 3 0 0 1 3-3h12l4 5h20a3 3 0 0 1 3 3v21a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z" fill="#f2c36b" stroke="#1b2440" strokeWidth="2" strokeLinejoin="round" />
+      <rect x="10" y="13" width="26" height="17" rx="1.5" fill="#fffaf4" stroke="#1b2440" strokeWidth="2" />
+      <path d="M14 19h18M14 23h18M14 27h11" stroke="#1b2440" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M3 17h42v18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z" fill="#f7d58f" stroke="#1b2440" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function Disc({ c }: { c: CertificationDisc }) {
+  return (
+    <span className="rt-disc" aria-hidden="true">
+      <span className="rt-disc-face">
+        {c.artwork.type === "image" ? (
+          <img src={c.artwork.src} alt="" width={200} height={200} loading="lazy" decoding="async" draggable={false} />
+        ) : (
+          <span className="rt-disc-text">
+            <b>{c.artwork.title}</b>
+            {c.artwork.subtitle && <i>{c.artwork.subtitle}</i>}
+          </span>
+        )}
+      </span>
+    </span>
+  );
+}
 
 export function CertificationsSection() {
-  const [selectedCert, setSelectedCert] = useState<CertificationItem | null>(null);
-  const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [selected, setSelected] = useState<ViewableDocument | null>(null);
+  const triggers = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const register = (id: string) => (el: HTMLButtonElement | null) => { if (el) triggers.current.set(id, el); };
 
-  const handleOpenModal = (cert: CertificationItem) => {
-    setSelectedCert(cert);
-  };
+  const openEducation = (e: EducationItem) =>
+    setSelected({ id: e.id, displayName: e.qualification, issuer: `${e.institution} · ${e.dates}`, pdfUrl: e.pdfUrl });
 
-  const handleCloseModal = () => {
-    const certId = selectedCert?.id;
-    setSelectedCert(null);
-    if (certId) {
-      setTimeout(() => {
-        cardRefs.current.get(certId)?.focus();
-      }, 50);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent, cert: CertificationItem) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleOpenModal(cert);
-    }
+  // Return focus to the item that opened the viewer.
+  const close = () => {
+    const id = selected?.id;
+    setSelected(null);
+    if (id) setTimeout(() => triggers.current.get(id)?.focus(), 50);
   };
 
   return (
-    <section id="certifications" className="py-24 bg-[#F6F3EC] border-t border-[#C8D3CC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          label="Certifications"
-          title="Professional Credentials"
-          description="Industry-recognized certifications that validate my expertise and commitment to excellence."
-          centered
-        />
-
-        <div className="mt-16">
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent>
-              {CERTIFICATIONS_DATA.map((cert) => {
-                const accent = cert.accentColor || "#172536";
-
-                return (
-                  <CarouselItem key={cert.id} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-2 h-full">
-                      <div
-                        ref={(el) => {
-                          if (el) cardRefs.current.set(cert.id, el);
-                        }}
-                        tabIndex={0}
-                        role="button"
-                        aria-label={`View certificate: ${cert.title} issued by ${cert.provider}`}
-                        onClick={() => handleOpenModal(cert)}
-                        onKeyDown={(e) => handleKeyDown(e, cert)}
-                        className="group cursor-pointer h-full outline-none focus-visible:ring-2 focus-visible:ring-[#172536] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F6F3EC] rounded-2xl"
-                      >
-                        <Card
-                          style={{
-                            borderTopColor: accent,
-                            borderTopWidth: "4px"
-                          }}
-                          className="h-full bg-[#FFFFFF] hover:bg-[#F4F7F5] border border-[#C8D3CC] hover:border-[#24756D] shadow-lg hover:shadow-[0_12px_32px_rgba(23,37,54,0.12)] transition-all duration-300 transform group-hover:-translate-y-1.5 flex flex-col overflow-hidden"
-                        >
-                          <CardContent className="p-5 flex flex-col h-full">
-                            {/* Fixed Aspect Thumbnail Container */}
-                            <div className="relative w-full h-52 bg-[#F6F3EC] rounded-xl overflow-hidden mb-4 flex items-center justify-center p-2 border border-[#D8DFDA]">
-                              <img
-                                src={cert.image}
-                                alt=""
-                                loading="lazy"
-                                decoding="async"
-                                className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                              />
-
-                              {/* View Certificate Hover Overlay */}
-                              <div className="absolute inset-0 bg-[#172536]/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-[#F8FAFC] font-semibold text-sm">
-                                <Eye className="w-5 h-5 text-[#F8FAFC]" />
-                                <span>View Certificate</span>
-                              </div>
-                            </div>
-
-                            <div className="flex-1 flex flex-col justify-between">
-                              <div>
-                                <h3 className="text-base font-bold text-[#172536] mb-1 line-clamp-2 group-hover:text-[#24756D] transition-colors">
-                                  {cert.title}
-                                </h3>
-                                <p
-                                  style={{ color: accent }}
-                                  className="text-xs font-bold mb-2"
-                                >
-                                  {cert.provider}
-                                </p>
-                              </div>
-                              {cert.description && (
-                                <p className="text-[#52606D] text-xs line-clamp-2 mt-1">
-                                  {cert.description}
-                                </p>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                );
-              })}
-            </CarouselContent>
-            <CarouselPrevious className="bg-[#172536] border-none text-[#F8FAFC] hover:bg-[#24756D] hover:text-white" />
-            <CarouselNext className="bg-[#172536] border-none text-[#F8FAFC] hover:bg-[#24756D] hover:text-white" />
-          </Carousel>
-
-          {/* Privacy & Misuse Notice */}
-          <div className="mt-12 max-w-3xl mx-auto p-4 rounded-xl bg-[#E8EFEA] border border-[#C8D3CC] flex items-center gap-3 text-[#52606D] text-xs sm:text-sm shadow-sm">
-            <ShieldAlert className="w-5 h-5 text-[#24756D] flex-shrink-0" />
-            <p className="font-medium">
-              These certificates are displayed solely for professional verification. Copying, downloading, altering, reproducing, or misrepresenting any certificate or credential is strictly prohibited.
-            </p>
+    <section id="credentials" className="rt-sec">
+      <div className="rt-wrap">
+        <div className="rt-head">
+          <div>
+            <span className="rt-pill">{credentials.label}</span>
+            <h2 className="rt-display rt-h2">{credentials.title}</h2>
+            <p className="rt-cred-desc">{credentials.description}</p>
           </div>
         </div>
+
+        <div className="rt-st rt-cred-split">
+          {/* EDUCATION */}
+          <div className="rt-st-half" aria-labelledby="rt-edu-h">
+            <h3 id="rt-edu-h" className="rt-display rt-st-title">{credentials.educationHeading}</h3>
+            <ul className="rt-ed-list">
+              {credentials.education.map((e) => (
+                <li key={e.id}>
+                  <button
+                    type="button"
+                    ref={register(e.id)}
+                    className={`rt-ed t-${e.tone}`}
+                    aria-haspopup="dialog"
+                    aria-label={`View document: ${e.qualification}, ${e.institution}, ${e.dates}`}
+                    onClick={() => openEducation(e)}
+                  >
+                    <FolderIcon />
+                    <span className="rt-ed-text">
+                      <span className="rt-ed-q">{e.qualification}</span>
+                      <span className="rt-ed-i">{e.institution}</span>
+                      <span className="rt-ed-m">{e.detail} · {e.dates}</span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* PROFESSIONAL CERTIFICATIONS */}
+          <div className="rt-st-half" aria-labelledby="rt-cert-h">
+            <h3 id="rt-cert-h" className="rt-display rt-st-title">{credentials.certificationsHeading}</h3>
+            <ul className="rt-cred-list">
+              {credentials.certifications.map((c) => (
+                <li key={c.id}>
+                  <button
+                    type="button"
+                    ref={register(c.id)}
+                    className="rt-cred"
+                    aria-haspopup="dialog"
+                    aria-label={`View certificate: ${c.displayName}, issued by ${c.issuer}`}
+                    onClick={() => setSelected(c)}
+                  >
+                    <Disc c={c} />
+                    <span className="rt-cred-name">{c.displayName}</span>
+                    <span className="rt-cred-issuer">{c.issuer}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <p className="rt-notice">{credentials.notice}</p>
       </div>
 
-      {/* Controlled Lazy Loaded Certificate Modal */}
-      {selectedCert && (
+      {selected && (
         <Suspense fallback={null}>
-          <CertificateModal
-            certificate={selectedCert}
-            onClose={handleCloseModal}
-          />
+          <PdfCertificateModal credential={selected} onClose={close} />
         </Suspense>
       )}
     </section>

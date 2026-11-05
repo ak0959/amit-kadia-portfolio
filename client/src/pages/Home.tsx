@@ -1,24 +1,28 @@
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { HighlightsSection } from "@/components/sections/HighlightsSection";
 import { AboutSection } from "@/components/sections/AboutSection";
-import { CertificationsSection } from "@/components/sections/CertificationsSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
+import { CertificationsSection } from "@/components/sections/CertificationsSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent selection:text-white">
+    <div className="rt-page min-h-screen font-sans">
       <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <CertificationsSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <HighlightsSection />
+        <AboutSection />
+        <ExperienceSection />
+        <SkillsSection />
+        <CertificationsSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

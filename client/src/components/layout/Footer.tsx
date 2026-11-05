@@ -1,10 +1,18 @@
+import { ArrowUp } from "lucide-react";
+import { footer, profile } from "@/data/portfolio.mock";
+
 export function Footer() {
   return (
-    <footer className="bg-[#172536] py-8 border-t border-[#213448]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-[#DDE3E8] text-sm font-medium">
-          © {new Date().getFullYear()} Amit Kadia. All rights reserved.
-        </p>
+    <footer className="rt-footer">
+      <div className="rt-wrap">
+        <a href="#home" className="rt-logo" aria-label={`${profile.name} - back to top`}>
+          <span className="rt-logo-name">{profile.name}</span>
+        </a>
+        <ul className="rt-foot-tags">
+          {footer.taglines.map((t) => <li key={t}>{t}</li>)}
+        </ul>
+        <a href="#home" className="top"><ArrowUp size={14} aria-hidden="true" />{footer.backToTop}</a>
+        <p>{footer.copyright}</p>
       </div>
     </footer>
   );

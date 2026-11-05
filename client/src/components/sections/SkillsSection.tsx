@@ -1,65 +1,57 @@
-import { motion } from "framer-motion";
-import { ShieldCheck, Workflow, Sparkles, Cpu } from "lucide-react";
-import { SectionHeader } from "@/components/shared/SectionHeader";
-import { SKILLS_DATA } from "@/data/skills";
-
-const categoryIcons = [ShieldCheck, Workflow, Sparkles, Cpu];
-const categoryAccents = ["#5B4DB1", "#D97706", "#2563EB", "#0F9D8A"]; // Indigo, Orange, Blue, Teal
+import { skills } from "@/data/portfolio.mock";
+import { icon } from "@/components/retro/icons";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-24 bg-[#172536] text-[#F8FAFC] relative overflow-hidden border-t border-[#213448] shadow-inner">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')] opacity-5 bg-cover bg-center" />
-      <div className="absolute inset-0 bg-[#172536]/95" />
+    <section id="skills" className="rt-sec">
+      <div className="rt-wrap">
+        <div className="rt-head">
+          <div>
+            <span className="rt-pill">{skills.label}</span>
+            <h2 className="rt-display rt-h2">{skills.title}</h2>
+          </div>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeader
-          label="Capabilities"
-          title="Leadership, Delivery & Digital Capabilities"
-          description="Strategic governance, Agile delivery methods, organizational transformation, and modern delivery tools."
-          centered
-          darkTheme={true}
-        />
+        <div className="rt-st">
+          {/* SKILLS */}
+          <div className="rt-st-half" aria-labelledby="rt-skills-h">
+            <h3 id="rt-skills-h" className="rt-display rt-st-title">{skills.skillsHeading}</h3>
+            <div className="rt-st-body">
+              <ul className="rt-st-cards">
+                {skills.tiles.map((t) => {
+                  const Icon = icon(t.icon);
+                  return (
+                    <li key={t.label} className={`rt-sk-card t-${t.tone}`}>
+                      <Icon aria-hidden="true" />
+                      <span className="name">{t.label}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
-          {SKILLS_DATA.map((skillGroup, i) => {
-            const Icon = categoryIcons[i % categoryIcons.length];
-            const accentColor = categoryAccents[i % categoryAccents.length];
-
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-[#E8EFEA] hover:bg-[#F4F7F5] border border-[#C8D3CC] rounded-2xl p-6 hover:shadow-[0_14px_35px_rgba(11,19,31,0.4)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div
-                    style={{ backgroundColor: accentColor }}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 text-white shadow-md group-hover:scale-105 transition-transform"
-                  >
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold text-[#172536] mb-2 leading-snug">{skillGroup.category}</h3>
-                  <p className="text-[13px] text-[#52606D] mb-6 font-normal leading-relaxed">{skillGroup.description}</p>
-                </div>
-
-                {/* Skill Chips */}
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((skill, j) => (
-                    <span
-                      key={j}
-                      className="px-2.5 py-1 rounded-lg bg-[#F4F7F5] border border-[#C8D3CC] text-[#213448] text-xs font-semibold hover:border-[#24756D] transition-colors"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+          {/* TOOLS */}
+          <div className="rt-st-half" aria-labelledby="rt-tools-h">
+            <h3 id="rt-tools-h" className="rt-display rt-st-title">{skills.toolsHeading}</h3>
+            <div className="rt-st-body">
+              <ul className="rt-st-cards">
+                {skills.tools.map((t) => {
+                  const Icon = icon(t.icon);
+                  return (
+                    <li key={t.id} className={`rt-sk-card t-${t.tone}`} title={t.description}>
+                      <Icon aria-hidden="true" />
+                      <span className="txt">
+                        <span className="name">{t.name}</span>
+                        <span className="lvl">{t.knowledgeLevel}</span>
+                      </span>
+                      <span className="rt-sr">{t.description}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
