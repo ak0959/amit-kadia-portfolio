@@ -61,6 +61,9 @@ export interface EducationItem {
   dates: string;
   pdfUrl: string;
   tone: string; // pastel tone class suffix (see .t-* in retro.css)
+  officialQualification?: string;
+  officialInstitution?: string;
+  specialization?: string;
 }
 export interface CertificationDisc extends ViewableDocument { artwork: CredentialArtwork }
 export interface ProjectCard extends ProjectItem { summary: string; icon: IconKey }
@@ -270,6 +273,8 @@ export const credentials = {
   title: "Education & Professional Certifications",
   description:
     "Academic qualifications and professional certifications supporting my journey in technology, delivery leadership and digital transformation.",
+  instruction:
+    "Click on any education folder or certification badge to view the certificate.",
   notice:
     "Certificates are displayed solely for professional verification. Copying, altering or misrepresenting any credential is prohibited.",
   educationHeading: "Education",
@@ -286,26 +291,46 @@ export const credentials = {
       pdfUrl: "/documents/education/pg-diploma-marketing-centennial.pdf", tone: "mint",
     },
     {
-      id: "pgp-data-science", qualification: "PGP in Data Science with Specialization in AI & ML", institution: "Hero Vired",
+      id: "pgp-data-science", qualification: "PGP in Data Science", institution: "Hero Vired",
       detail: "Online", dates: "2025–2026",
       pdfUrl: "/documents/education/pgp-data-science-ai-ml.pdf", tone: "lilac",
+      officialQualification: "PGP in Data Science with Specialization in AI & ML",
+      officialInstitution: "Hero Vired",
+      specialization: "AI & ML",
+    },
+    {
+      id: "executive-diploma-iiitb",
+      qualification: "Executive Diploma in Data Science & AI",
+      institution: "IIIT Bangalore",
+      detail: "",
+      dates: "2026",
+      pdfUrl: "/documents/education/executive-diploma-data-science-ai-iiitb.pdf",
+      tone: "butter",
+      officialQualification: "Executive Diploma in Data Science & Artificial Intelligence",
+      officialInstitution: "International Institute of Information Technology Bangalore (IIIT-B)",
+      specialization: "Business Intelligence & Data Analytics",
     },
   ] as EducationItem[],
   certifications: [
     {
-      id: "csm", displayName: "Certified ScrumMaster® (CSM®)", issuer: "Scrum Alliance",
-      pdfUrl: "/documents/certificates/certified-scrummaster-csm.pdf",
-      artwork: { type: "image", src: "/images/portfolio-retro/credentials/csm-badge.png", alt: "Scrum Alliance CSM Scrum Master badge" },
-    },
-    {
       id: "pmp", displayName: "Project Management Professional (PMP)®", issuer: "Project Management Institute",
       pdfUrl: "/documents/certificates/project-management-professional-pmp.pdf",
-      artwork: { type: "image", src: "/images/portfolio-retro/credentials/pmp-badge.png", alt: "PMP Project Management Professional badge" },
+      artwork: { type: "image", src: "/images/portfolio-retro/credentials/pmp-badge.png", alt: "Project Management Professional (PMP)® badge" },
+    },
+    {
+      id: "csm", displayName: "Certified ScrumMaster® (CSM®)", issuer: "Scrum Alliance",
+      pdfUrl: "/documents/certificates/certified-scrummaster-csm.pdf",
+      artwork: { type: "image", src: "/images/portfolio-retro/credentials/csm-badge.png", alt: "Certified ScrumMaster® (CSM®) badge" },
     },
     {
       id: "itil4", displayName: "ITIL® 4 Foundation", issuer: "PeopleCert / AXELOS",
       pdfUrl: "/documents/certificates/itil4-foundation.pdf",
-      artwork: { type: "text", title: "ITIL® 4 Foundation", subtitle: "PeopleCert / AXELOS" },
+      artwork: { type: "image", src: "/images/portfolio-retro/credentials/itil4-badge.png", alt: "ITIL® 4 Foundation certification badge" },
+    },
+    {
+      id: "odoo19", displayName: "Odoo 19 Functional Certification", issuer: "Odoo Middle East DWC-LLC",
+      pdfUrl: "/documents/certificates/odoo-19-functional-certification.pdf",
+      artwork: { type: "image", src: "/images/portfolio-retro/credentials/odoo-badge.svg", alt: "Odoo 19 Functional Certification logo" },
     },
   ] as CertificationDisc[],
 };

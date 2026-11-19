@@ -1,17 +1,37 @@
 import { useState, useRef, lazy, Suspense } from "react";
-import { credentials, type CertificationDisc, type EducationItem, type ViewableDocument } from "@/data/portfolio.mock";
+import {
+  credentials,
+  type CertificationDisc,
+  type EducationItem,
+  type ViewableDocument,
+} from "@/data/portfolio.mock";
+import { preloadPdfEngine } from "./pdfService";
 
-// The PDF viewer (and pdf.js) is only loaded when a document is opened.
-const PdfCertificateModal = lazy(() => import("./PdfCertificateModal").then((m) => ({ default: m.PdfCertificateModal })));
+// The PDF viewer is loaded dynamically
+const PdfCertificateModal = lazy(() =>
+  import("./PdfCertificateModal").then((m) => ({ default: m.PdfCertificateModal }))
+);
 
 /** Small retro folder-with-document icon. */
 function FolderIcon() {
   return (
     <svg className="rt-ed-icon" viewBox="0 0 48 40" aria-hidden="true" focusable="false">
-      <path d="M3 8a3 3 0 0 1 3-3h12l4 5h20a3 3 0 0 1 3 3v21a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z" fill="#f2c36b" stroke="#1b2440" strokeWidth="2" strokeLinejoin="round" />
+      <path
+        d="M3 8a3 3 0 0 1 3-3h12l4 5h20a3 3 0 0 1 3 3v21a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z"
+        fill="#f2c36b"
+        stroke="#1b2440"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
       <rect x="10" y="13" width="26" height="17" rx="1.5" fill="#fffaf4" stroke="#1b2440" strokeWidth="2" />
       <path d="M14 19h18M14 23h18M14 27h11" stroke="#1b2440" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M3 17h42v18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z" fill="#f7d58f" stroke="#1b2440" strokeWidth="2" strokeLinejoin="round" />
+      <path
+        d="M3 17h42v18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z"
+        fill="#f7d58f"
+        stroke="#1b2440"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -21,7 +41,15 @@ function Disc({ c }: { c: CertificationDisc }) {
     <span className="rt-disc" aria-hidden="true">
       <span className="rt-disc-face">
         {c.artwork.type === "image" ? (
-          <img src={c.artwork.src} alt="" width={200} height={200} loading="lazy" decoding="async" draggable={false} />
+          <img
+            src={c.artwork.src}
+            alt={c.artwork.alt}
+            width={160}
+            height={160}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
         ) : (
           <span className="rt-disc-text">
             <b>{c.artwork.title}</b>
@@ -36,12 +64,21 @@ function Disc({ c }: { c: CertificationDisc }) {
 export function CertificationsSection() {
   const [selected, setSelected] = useState<ViewableDocument | null>(null);
   const triggers = useRef<Map<string, HTMLButtonElement>>(new Map());
-  const register = (id: string) => (el: HTMLButtonElement | null) => { if (el) triggers.current.set(id, el); };
 
-  const openEducation = (e: EducationItem) =>
-    setSelected({ id: e.id, displayName: e.qualification, issuer: `${e.institution} · ${e.dates}`, pdfUrl: e.pdfUrl });
+  const registerTrigger = (id: string) => (el: HTMLButtonElement | null) => {
+    if (el) triggers.current.set(id, el);
+  };
 
-  // Return focus to the item that opened the viewer.
+  const openEducation = (e: EducationItem) => {
+    setSelected({
+      id: e.id,
+      displayName: e.officialQualification || e.qualification,
+      issuer: `${e.officialInstitution || e.institution} · ${e.dates}`,
+      pdfUrl: e.pdfUrl,
+    });
+  };
+
+  // Close PDF viewer and return focus
   const close = () => {
     const id = selected?.id;
     setSelected(null);
@@ -49,7 +86,12 @@ export function CertificationsSection() {
   };
 
   return (
-    <section id="credentials" className="rt-sec">
+    <section
+      id="credentials"
+      className="rt-sec"
+      onPointerEnter={preloadPdfEngine}
+      onFocusCapture={preloadPdfEngine}
+    >
       <div className="rt-wrap">
         <div className="rt-head">
           <div>
@@ -62,23 +104,30 @@ export function CertificationsSection() {
         <div className="rt-st rt-cred-split">
           {/* EDUCATION */}
           <div className="rt-st-half" aria-labelledby="rt-edu-h">
-            <h3 id="rt-edu-h" className="rt-display rt-st-title">{credentials.educationHeading}</h3>
+            <h3 id="rt-edu-h" className="rt-display rt-st-title">
+              {credentials.educationHeading}
+            </h3>
             <ul className="rt-ed-list">
               {credentials.education.map((e) => (
                 <li key={e.id}>
                   <button
                     type="button"
-                    ref={register(e.id)}
+                    ref={registerTrigger(e.id)}
                     className={`rt-ed t-${e.tone}`}
                     aria-haspopup="dialog"
-                    aria-label={`View document: ${e.qualification}, ${e.institution}, ${e.dates}`}
+                    aria-label={`View document: ${e.officialQualification || e.qualification}, ${
+                      e.officialInstitution || e.institution
+                    }, ${e.dates}`}
                     onClick={() => openEducation(e)}
                   >
                     <FolderIcon />
                     <span className="rt-ed-text">
                       <span className="rt-ed-q">{e.qualification}</span>
                       <span className="rt-ed-i">{e.institution}</span>
-                      <span className="rt-ed-m">{e.detail} · {e.dates}</span>
+                      <span className="rt-ed-m">
+                        {e.detail ? `${e.detail} · ` : ""}
+                        {e.dates}
+                      </span>
                     </span>
                   </button>
                 </li>
@@ -88,13 +137,15 @@ export function CertificationsSection() {
 
           {/* PROFESSIONAL CERTIFICATIONS */}
           <div className="rt-st-half" aria-labelledby="rt-cert-h">
-            <h3 id="rt-cert-h" className="rt-display rt-st-title">{credentials.certificationsHeading}</h3>
+            <h3 id="rt-cert-h" className="rt-display rt-st-title">
+              {credentials.certificationsHeading}
+            </h3>
             <ul className="rt-cred-list">
               {credentials.certifications.map((c) => (
                 <li key={c.id}>
                   <button
                     type="button"
-                    ref={register(c.id)}
+                    ref={registerTrigger(c.id)}
                     className="rt-cred"
                     aria-haspopup="dialog"
                     aria-label={`View certificate: ${c.displayName}, issued by ${c.issuer}`}
@@ -102,13 +153,14 @@ export function CertificationsSection() {
                   >
                     <Disc c={c} />
                     <span className="rt-cred-name">{c.displayName}</span>
-                    <span className="rt-cred-issuer">{c.issuer}</span>
+                    {/* Redundant issuer-name label removed from visible display since disc artwork identifies issuer */}
                   </button>
                 </li>
               ))}
             </ul>
           </div>
         </div>
+        <p className="rt-instruction">{credentials.instruction}</p>
         <p className="rt-notice">{credentials.notice}</p>
       </div>
 
